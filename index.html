@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cycloid & Planetary Kinematics Laboratory — Walter (@xallace)</title>
-  <meta name="description" content="Interaktives Kinematik-Labor für Zykloidgetriebe, Wankelmotor-Trochoiden, Spirograph & Rollkurven mit direktem CAD DXF-Export. Modernisierung von Walter Fendt.">
+  <meta name="description" content="Interactive kinematics laboratory for cycloidal speed reducers, Wankel rotary engine trochoids, spirographs & roulette curves with direct CAD DXF/SVG export. Modernization of Walter Fendt's applet.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -15,17 +15,17 @@
   <header class="app-header">
     <div class="header-container">
       <div class="brand">
-        <a href="https://xallace.github.io/" class="back-link" title="Zurück zum Portfolio">
+        <a href="https://xallace.github.io/" class="back-link" title="Back to Portfolio">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
         </a>
         <div class="brand-text">
           <h1 class="app-title">Cycloid & Planetary Kinematics Lab</h1>
-          <p class="app-subtitle">Rollkurven, Wankelmotor-Trochoiden & Zykloidgetriebe mit CAD-Export</p>
+          <p class="app-subtitle">Roulette Curves, Wankel Engine Trochoids & Cycloidal Drives with CAD Export</p>
         </div>
       </div>
 
       <div class="header-tools">
-        <button id="btn-sound-toggle" class="tool-btn" title="Sound ein/ausschalten">🔊</button>
+        <button id="btn-sound-toggle" class="tool-btn" title="Toggle Sound">🔊</button>
         <select id="theme-select" class="theme-dropdown">
           <option value="slate" selected>Slate Dark</option>
           <option value="blueprint">Blueprint CAD</option>
@@ -40,7 +40,7 @@
       <!-- Tribute Badge -->
       <div class="tribute-badge">
         <span class="badge-icon">⚙️</span>
-        <span>Modernisierung & Erweiterung von Walter Fendts Rollkurven-Applet (2024)</span>
+        <span>Modernization & Extension of Walter Fendt's Roulette Curves Applet (2024)</span>
       </div>
 
       <!-- Main Workstation Layout -->
@@ -50,26 +50,26 @@
         <div class="canvas-panel">
           <div class="canvas-top-bar">
             <div class="telemetry-item">
-              <span class="tel-label">Winkel &theta;:</span>
+              <span class="tel-label">Angle &theta;:</span>
               <span id="telemetry-angle" class="tel-val">0.0°</span>
             </div>
             <div class="telemetry-item">
-              <span class="tel-label">Übersetzung:</span>
+              <span class="tel-label">Gear Ratio:</span>
               <span id="telemetry-ratio" class="tel-val">1 : 3</span>
             </div>
             <div class="canvas-quick-actions">
-              <button id="btn-recenter" class="icon-btn" title="Ansicht zentrieren">⌖</button>
-              <button id="btn-reset" class="icon-btn" title="Spur zurücksetzen">↺</button>
+              <button id="btn-recenter" class="icon-btn" title="Recenter View">⌖</button>
+              <button id="btn-reset" class="icon-btn" title="Reset Trace">↺</button>
             </div>
           </div>
 
           <div class="canvas-wrapper">
             <canvas id="kinematics-canvas"></canvas>
-            <div class="canvas-hint">Maus ziehen zum Verschieben · Mausrad zum Zoomen</div>
+            <div class="canvas-hint">Drag to Pan · Scroll to Zoom</div>
           </div>
 
           <div class="formula-banner">
-            <span class="formula-label">Analytische Kurvengleichung:</span>
+            <span class="formula-label">Analytical Curve Equation:</span>
             <code id="telemetry-formula" class="formula-code">x(\alpha) = e \cos(3\alpha) + R \cos(\alpha)</code>
           </div>
         </div>
@@ -79,19 +79,19 @@
           
           <!-- Preset Selector -->
           <div class="control-box">
-            <label for="preset-select" class="box-label">Getriebe- / Kinematik-Modus</label>
+            <label for="preset-select" class="box-label">Mechanism / Kinematics Mode</label>
             <select id="preset-select" class="main-select">
-              <optgroup label="Industrie & Mechatronik">
-                <option value="wankel" selected>Wankelmotor (Trochoidengehäuse & Drehkolben)</option>
-                <option value="cycloid_10">Roboter-Zykloidgetriebe (10:1 Untersetzung)</option>
-                <option value="cycloid_15">Roboter-Zykloidgetriebe (15:1 Untersetzung)</option>
+              <optgroup label="Industrial & Mechatronics">
+                <option value="wankel" selected>Wankel Rotary Engine (Trochoid Housing & Rotor)</option>
+                <option value="cycloid_10">Robotics Cycloid Drive (10:1 Reduction)</option>
+                <option value="cycloid_15">Robotics Cycloid Drive (15:1 Reduction)</option>
               </optgroup>
-              <optgroup label="Klassische Rollkurven">
-                <option value="cardioid">Kardioide (Herzkurve, Epizykloide 1:1)</option>
-                <option value="nephroid">Nephroide (Nierenkurve, Epizykloide 2:1)</option>
-                <option value="astroid">Astroide (Sternkurve, Hypozykloide 4:1)</option>
-                <option value="deltoid">Deltoide (Dreispitz, Hypozykloide 3:1)</option>
-                <option value="spirograph_art">Spirograph Kunstkurve</option>
+              <optgroup label="Classical Roulette Curves">
+                <option value="cardioid">Cardioid (Heart Curve, 1:1 Epicycloid)</option>
+                <option value="nephroid">Nephroid (Kidney Curve, 2:1 Epicycloid)</option>
+                <option value="astroid">Astroid (Star Curve, 4:1 Hypocycloid)</option>
+                <option value="deltoid">Deltoid (Tricuspoid, 3:1 Hypocycloid)</option>
+                <option value="spirograph_art">Spirograph Art Curve</option>
               </optgroup>
             </select>
           </div>
@@ -104,7 +104,7 @@
             
             <div class="slider-group">
               <div class="slider-header">
-                <span>Geschwindigkeit:</span>
+                <span>Speed:</span>
                 <span id="speed-val">1.0x</span>
               </div>
               <input type="range" id="speed-slider" min="0.1" max="3.0" step="0.1" value="1.0">
@@ -113,11 +113,11 @@
 
           <!-- Dynamic Parameters for Trochoid mode -->
           <div id="params-trochoid" class="control-box mode-params hidden">
-            <label class="box-label">Parametrische Geometrie</label>
+            <label class="box-label">Parametric Geometry</label>
             
             <div class="slider-group">
               <div class="slider-header">
-                <span>Fester Wälzkreis R:</span>
+                <span>Fixed Pitch Circle R:</span>
                 <span id="val-R">120</span>
               </div>
               <input type="range" id="slider-R" min="40" max="240" step="5" value="120">
@@ -125,7 +125,7 @@
 
             <div class="slider-group">
               <div class="slider-header">
-                <span>Rollender Kreis r:</span>
+                <span>Rolling Circle r:</span>
                 <span id="val-r">40</span>
               </div>
               <input type="range" id="slider-r" min="10" max="120" step="2" value="40">
@@ -133,7 +133,7 @@
 
             <div class="slider-group">
               <div class="slider-header">
-                <span>Zeigerabstand d:</span>
+                <span>Tracing Offset d:</span>
                 <span id="val-d">50</span>
               </div>
               <input type="range" id="slider-d" min="5" max="150" step="2" value="50">
@@ -143,7 +143,7 @@
           <!-- CAD Export Section -->
           <div class="control-box export-box">
             <label class="box-label">CAD & Vector Export</label>
-            <p class="export-desc">Exportiere die berechnete Kurve direkt als CAD-Skizze für Autodesk Inventor, SolidWorks oder Laser-Cutting:</p>
+            <p class="export-desc">Export the computed curve directly as a CAD sketch for Autodesk Inventor, SolidWorks, or laser cutting:</p>
             
             <div class="export-buttons">
               <button id="btn-export-dxf" class="btn btn-cad">
@@ -162,69 +162,69 @@
 
       <!-- Scientific & Engineering Foundations -->
       <section class="info-section">
-        <h2 class="info-title">Maschinenbau & Kinematische Grundlagen</h2>
+        <h2 class="info-title">Mechanical Engineering & Kinematic Foundations</h2>
 
         <div class="info-grid">
           <div class="info-card">
             <div class="info-icon">🏎️</div>
-            <h3>Wankelmotor-Kinematik</h3>
+            <h3>Wankel Rotary Engine Kinematics</h3>
             <p>
-              Die Gehäusewand des Wankelmotors (Kreiskolbenmotor) ist eine <strong>zweibogige Epitrochoide</strong>. 
-              Der dreieckige Drehkolben (Rotor) läuft auf einer Exzenterwelle mit Exzentrizität $e$ und dreht sich 
-              über ein internes Hohlradgetriebe mit genau <strong>1/3 der Drehzahl</strong> der Exzenterwelle. 
-              Dadurch berühren die 3 Dichtleisten (Apex Seals) in jedem Drehwinkel tangential die Trochoidenwand.
+              The housing wall of a Wankel rotary engine is a <strong>two-lobed epitrochoid</strong>. 
+              The triangular rotor orbits on an eccentric shaft with eccentricity $e$ and rotates via an internal 
+              ring gear at exactly <strong>1/3 the speed</strong> of the eccentric shaft. 
+              As a result, all three apex seals maintain continuous tangential contact with the trochoid wall at every shaft angle.
             </p>
           </div>
 
           <div class="info-card">
             <div class="info-icon">🦾</div>
-            <h3>Zykloidgetriebe (Robotik)</h3>
+            <h3>Cycloidal Speed Reducers (Robotics)</h3>
             <p>
-              In modernen Industrierobotern (z. B. von KUKA oder Fanuc) werden <strong>Zykloidgetriebe (Cyclo Drives)</strong> 
-              eingesetzt. Eine Kurvenscheibe mit $N$ Zykloiden-Wellen rollt an einem festen Ring aus $N+1$ Rollenbolzen ab. 
-              Der Vorteil: <strong>Extrem hohe Untersetzungen</strong> ($i = 10:1$ bis $100:1$ in einer einzigen Stufe) 
-              bei <strong>absoluter Spielfreiheit</strong> und hoher Stoßbelastbarkeit.
+              Modern industrial robots (e.g., from KUKA or Fanuc) rely on <strong>cycloidal speed reducers (Cyclo Drives)</strong>. 
+              A cycloidal disc with $N$ lobes rolls inside a stationary ring of $N+1$ roller pins. 
+              The advantage: <strong>extremely high reduction ratios</strong> ($i = 10:1$ to $100:1$ in a single stage) 
+              with <strong>zero backlash</strong> and high shock-load capacity.
             </p>
           </div>
         </div>
 
         <!-- Comparison Table -->
         <div class="comparison-card">
-          <h3>Direkter Vergleich: Walter Fendt (2024) vs. Modernisiertes Labor (2026)</h3>
+          <h3>Direct Comparison: Walter Fendt (2024) vs. Modernized Laboratory (2026)</h3>
           <div class="table-wrapper">
             <table>
               <thead>
                 <tr>
-                  <th>Merkmal</th>
-                  <th>Walter Fendt Original (`epihypotrochoids.js`)</th>
-                  <th>Modernisiertes Labor (2026)</th>
+                  <th>Feature</th>
+                  <th>Walter Fendt Original (<code>epihypotrochoids.js</code>)</th>
+                  <th>Modernized Laboratory (2026)</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td><strong>Mechanische Getriebemodi</strong></td>
-                  <td>Nur abstrakte Kreis-Rollkurven</td>
-                  <td><strong>Wankelmotor-Simulation</strong>, <strong>Roboter-Zykloidgetriebe</strong>, Spirograph & Klassik</td>
+                  <td><strong>Mechanical Drive Modes</strong></td>
+                  <td>Abstract rolling-circle curves only</td>
+                  <td><strong>Wankel Rotary Engine Simulation</strong>, <strong>Robotics Cycloid Drive</strong>, Spirograph & Classical</td>
                 </tr>
                 <tr>
-                  <td><strong>CAD-Konnektivität</strong></td>
-                  <td>Keine</td>
-                  <td><strong>Echter DXF- und SVG-Export</strong> für Autodesk Inventor, SolidWorks & CNC-Fräsen</td>
+                  <td><strong>CAD Connectivity</strong></td>
+                  <td>None</td>
+                  <td><strong>Native DXF & SVG Export</strong> for Autodesk Inventor, SolidWorks & CNC milling</td>
                 </tr>
                 <tr>
-                  <td><strong>Interaktion & Navigation</strong></td>
-                  <td>Statischer 2D-Ausschnitt</td>
-                  <td>Flüssiges <strong>Pan & Zoom</strong>, interaktive Presets & dynamische Slider</td>
+                  <td><strong>Interaction & Navigation</strong></td>
+                  <td>Static 2D viewport</td>
+                  <td>Smooth <strong>Pan & Zoom</strong>, interactive presets & dynamic sliders</td>
                 </tr>
                 <tr>
-                  <td><strong>Design & Ästhetik</strong></td>
-                  <td>Gelber Hintergrund mit Primärfarben</td>
-                  <td>Slate Dark Theme, technischer Blueprint-Modus & High-DPI Retina Rendering</td>
+                  <td><strong>Design & Aesthetics</strong></td>
+                  <td>Yellow background with flat primary colors</td>
+                  <td>Slate Dark Theme, Technical Blueprint Mode & High-DPI Retina Rendering</td>
                 </tr>
                 <tr>
-                  <td><strong>Akustik & Haptik</strong></td>
-                  <td>Lautlos</td>
-                  <td>Prozedurales Web Audio (Zahnrad-Klicks & Wankel-Drehzahlsummen)</td>
+                  <td><strong>Acoustics & Feedback</strong></td>
+                  <td>Silent</td>
+                  <td>Procedural Web Audio (gear-tooth clicks & Wankel shaft hum)</td>
                 </tr>
               </tbody>
             </table>
@@ -238,8 +238,8 @@
   <footer class="app-footer">
     <div class="container footer-content">
       <p>
-        Entwickelt von <strong>Walter (@xallace)</strong> als Teil des Computational Systems & Kinematics Portfolios.  
-        Didaktische Hommage an Studiendirektor <strong>Walter Fendt</strong> (1997–2024).
+        Developed by <strong>Walter (@xallace)</strong> as part of the Computational Systems & Kinematics Portfolio.  
+        Pedagogical tribute to senior educator <strong>Walter Fendt</strong> (1997–2024).
       </p>
       <div class="footer-links">
         <a href="https://github.com/xallace" target="_blank" rel="noopener noreferrer">GitHub (@xallace)</a>

@@ -23,7 +23,7 @@
   let theta = 0;
   let speed = 1.0;
   let audio;
-  let lang = 'de';
+  let lang = 'en';
   let theme = 'slate'; // 'slate', 'blueprint'
 
   // Parameters
@@ -164,7 +164,7 @@
 
     document.getElementById('btn-play-pause').addEventListener('click', (e) => {
       isRunning = !isRunning;
-      e.currentTarget.textContent = isRunning ? '⏸ Pause' : '▶ Weiter';
+      e.currentTarget.textContent = isRunning ? '⏸ Pause' : '▶ Resume';
     });
 
     document.getElementById('btn-reset').addEventListener('click', () => {
@@ -543,14 +543,14 @@
     if (elAngle) elAngle.textContent = `${((theta * 180 / Math.PI) % 360).toFixed(1)}°`;
 
     if (mode === 'wankel') {
-      if (elRatio) elRatio.textContent = '1 : 3 (Rotor zu Exzenterwelle)';
+      if (elRatio) elRatio.textContent = '1 : 3 (Rotor to Eccentric Shaft)';
       if (elFormula) elFormula.innerHTML = 'x(\\alpha) = e \\cos(3\\alpha) + R \\cos(\\alpha)';
     } else if (mode === 'cycloid_drive') {
-      if (elRatio) elRatio.textContent = `1 : ${cycloN} (Spielfreie Untersetzung)`;
+      if (elRatio) elRatio.textContent = `1 : ${cycloN} (Zero-Backlash Reduction)`;
       if (elFormula) elFormula.innerHTML = `i = \\frac{1}{N} = \\frac{1}{${cycloN}}`;
     } else {
       const gcdVal = CycloidMath.gcd(R, r);
-      if (elRatio) elRatio.textContent = `${R/gcdVal} : ${r/gcdVal} (Zähne / Wälzverhältnis)`;
+      if (elRatio) elRatio.textContent = `${R/gcdVal} : ${r/gcdVal} (Teeth / Pitch Ratio)`;
       if (elFormula) elFormula.innerHTML = curveType === 'hypo' 
         ? 'x = (R-r)\\cos\\theta + d\\cos(\\frac{R-r}{r}\\theta)'
         : 'x = (R+r)\\cos\\theta - d\\cos(\\frac{R+r}{r}\\theta)';

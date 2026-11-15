@@ -79,9 +79,9 @@ $$\psi = \arctan\left( \frac{\sin((1-N)\phi)}{\frac{R_{\text{pin}}}{e(N+1)} - \c
 
 To use the generated curves directly in your mechanical CAD workflows:
 
-1. Select your desired kinematics mode (e.g., *Wankelmotor* or *Roboter-Zykloidgetriebe*).
+1. Select your desired kinematics mode (e.g., *Wankel Rotary Engine* or *Robotics Cycloid Drive*).
 2. Adjust the geometric sliders ($R, r, d$, eccentricity $e$, or lobe count $N$).
-3. Click **„DXF Export (CAD)“**.
+3. Click **“DXF Export (CAD)”**.
 4. In **Autodesk Inventor** or **SolidWorks**:
    * Open / Insert $\rightarrow$ **Import DXF as 2D Sketch**.
    * Select the imported `WANKEL_HOUSING` or `CYCLOID_DISC` polyline.
@@ -92,5 +92,5 @@ To use the generated curves directly in your mechanical CAD workflows:
 ## 📜 Credits & License
 
 * Modern engineering implementation, CAD export engine, and mechatronic models by **Walter (@xallace)** (2026).
-* Pedagogical tribute to **Walter Fendt** (Studiendirektor a.D., [www.walter-fendt.de](https://www.walter-fendt.de)).
+* Pedagogical tribute to **Walter Fendt** (retired senior physics & mathematics educator, [www.walter-fendt.de](https://www.walter-fendt.de)).
 * Released under the **MIT License**.
