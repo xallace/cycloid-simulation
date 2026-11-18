@@ -3,254 +3,401 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cycloid & Planetary Kinematics Laboratory — Walter (@xallace)</title>
-  <meta name="description" content="Interactive kinematics laboratory for cycloidal speed reducers, Wankel rotary engine trochoids, spirographs & roulette curves with direct CAD DXF/SVG export. Modernization of Walter Fendt's applet.">
+  <title>Cycloid &amp; Planetary Kinematics Lab · Wankel, Cyclo Drives &amp; Roulettes (1967 Book Plate Edition)</title>
+  <meta name="description" content="Interactive 1967 book-plate 3D &amp; 2D kinematics laboratory for Wankel rotary trochoids, robotics cycloidal speed reducers, epicycloids, hypocycloids, and direct CAD DXF/SVG export.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2218%22 fill=%22%23efe6d3%22 stroke=%22%23181715%22 stroke-width=%226%22/><circle cx=%2250%22 cy=%2250%22 r=%2232%22 fill=%22none%22 stroke=%22%23181715%22 stroke-width=%225%22/><path d=%22M82 50 C62 50 50 38 50 18 C50 38 38 50 18 50 C38 50 50 62 50 82 C50 62 62 50 82 50 Z%22 fill=%22rgba(217,68,38,0.18)%22 stroke=%22%23d94426%22 stroke-width=%224%22/></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="vendor/katex/katex.min.css">
   <link rel="stylesheet" href="style.css">
 </head>
-<body class="theme-slate">
-
-  <header class="app-header">
-    <div class="header-container">
-      <div class="brand">
-        <a href="https://xallace.github.io/" class="back-link" title="Back to Portfolio">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-        </a>
+<body>
+  <div id="app">
+    <!-- Top Header (Pure 1967 Book Plate Aesthetic) -->
+    <header id="app-header">
+      <div class="header-left">
+        <div class="brand-badge-icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#181715" stroke-width="1.8">
+            <circle cx="12" cy="12" r="9"/>
+            <path d="M21 12 C15 12 12 9 12 3 C12 9 9 12 3 12 C9 12 12 15 12 21 C12 15 15 12 21 12 Z" stroke="#d94426" fill="rgba(217,68,38,0.15)"/>
+          </svg>
+        </div>
         <div class="brand-text">
-          <h1 class="app-title">Cycloid & Planetary Kinematics Lab</h1>
-          <p class="app-subtitle">Roulette Curves, Wankel Engine Trochoids & Cycloidal Drives with CAD Export</p>
+          <h1><span id="ui-brand-title">CYCLOID LAB</span> <span class="sub-tag" id="ui-brand-sub">Wankel, Cyclo &amp; Roulettes</span></h1>
+          <p class="source-ref" id="ui-source-ref">1967 Drafting Plates · Tribute to Walter Fendt · CAD DXF/SVG</p>
         </div>
       </div>
 
-      <div class="header-tools">
-        <button id="btn-sound-toggle" class="tool-btn" title="Toggle Sound">🔊</button>
-        <select id="theme-select" class="theme-dropdown">
-          <option value="slate" selected>Slate Dark</option>
-          <option value="blueprint">Blueprint CAD</option>
-        </select>
-      </div>
-    </div>
-  </header>
+      <nav class="main-tabs" role="tablist" aria-label="Application Sections">
+        <button class="tab-btn active" data-tab="atlas" role="tab" aria-selected="true" id="tab-btn-atlas">3D Plate Atlas &amp; Tour</button>
+        <button class="tab-btn" data-tab="lab" role="tab" aria-selected="false" id="tab-btn-lab">Interactive Kinematics Lab</button>
+        <button class="tab-btn" data-tab="concepts" role="tab" aria-selected="false" id="tab-btn-concepts">Concepts &amp; Book Notes</button>
+        <button class="tab-btn" data-tab="reading" role="tab" aria-selected="false" id="tab-btn-reading">Further Reading</button>
+      </nav>
 
-  <main class="main-content">
-    <div class="container">
-
-      <!-- Tribute Badge -->
-      <div class="tribute-badge">
-        <span class="badge-icon">⚙️</span>
-        <span>Modernization & Extension of Walter Fendt's Roulette Curves Applet (2024)</span>
-      </div>
-
-      <!-- Main Workstation Layout -->
-      <div class="workstation-layout">
-        
-        <!-- Left: Interactive Canvas -->
-        <div class="canvas-panel">
-          <div class="canvas-top-bar">
-            <div class="telemetry-item">
-              <span class="tel-label">Angle &theta;:</span>
-              <span id="telemetry-angle" class="tel-val">0.0°</span>
-            </div>
-            <div class="telemetry-item">
-              <span class="tel-label">Gear Ratio:</span>
-              <span id="telemetry-ratio" class="tel-val">1 : 3</span>
-            </div>
-            <div class="canvas-quick-actions">
-              <button id="btn-recenter" class="icon-btn" title="Recenter View">⌖</button>
-              <button id="btn-reset" class="icon-btn" title="Reset Trace">↺</button>
-            </div>
-          </div>
-
-          <div class="canvas-wrapper">
-            <canvas id="kinematics-canvas"></canvas>
-            <div class="canvas-hint">Drag to Pan · Scroll to Zoom</div>
-          </div>
-
-          <div class="formula-banner">
-            <span class="formula-label">Analytical Curve Equation:</span>
-            <code id="telemetry-formula" class="formula-code">x(\alpha) = e \cos(3\alpha) + R \cos(\alpha)</code>
-          </div>
+      <div class="header-right">
+        <div class="seg-mini" id="lang-toggle-group" title="Switch language / Sprache umschalten">
+          <button class="mini-btn active" data-lang="en">EN</button>
+          <button class="mini-btn" data-lang="de">DE</button>
         </div>
+        <button id="btn-sound-toggle" class="pill-btn" title="Toggle mechanical acoustic synthesis">🔊</button>
+        <button id="btn-start-tour" class="pill-btn accent">
+          <span>▶</span> <span id="ui-btn-tour">Guided Tour</span>
+        </button>
+      </div>
+    </header>
 
-        <!-- Right: Control Sidebar -->
-        <div class="controls-panel">
-          
-          <!-- Preset Selector -->
-          <div class="control-box">
-            <label for="preset-select" class="box-label">Mechanism / Kinematics Mode</label>
-            <select id="preset-select" class="main-select">
-              <optgroup label="Industrial & Mechatronics">
-                <option value="wankel" selected>Wankel Rotary Engine (Trochoid Housing & Rotor)</option>
-                <option value="cycloid_10">Robotics Cycloid Drive (10:1 Reduction)</option>
-                <option value="cycloid_15">Robotics Cycloid Drive (15:1 Reduction)</option>
-              </optgroup>
-              <optgroup label="Classical Roulette Curves">
-                <option value="cardioid">Cardioid (Heart Curve, 1:1 Epicycloid)</option>
-                <option value="nephroid">Nephroid (Kidney Curve, 2:1 Epicycloid)</option>
-                <option value="astroid">Astroid (Star Curve, 4:1 Hypocycloid)</option>
-                <option value="deltoid">Deltoid (Tricuspoid, 3:1 Hypocycloid)</option>
-                <option value="spirograph_art">Spirograph Art Curve</option>
-              </optgroup>
-            </select>
+    <!-- Main Workspace -->
+    <main id="workspace">
+      <div id="interactive-shell">
+        <section id="stage-column">
+          <!-- 3D Viewport -->
+          <div id="viewport-wrap">
+            <div id="three-container"></div>
+
+            <!-- SVG + HTML Call-Outs Projection Overlay -->
+            <svg id="callout-svg" aria-hidden="true"></svg>
+            <div id="callout-layer"></div>
+
+            <!-- Top HUD Row -->
+            <div class="hud-top-row">
+              <!-- Atlas Selector Bar -->
+              <div id="atlas-figure-bar" class="hud-bar">
+                <button class="fig-chip active" id="btn-overview" data-fig="overview">Overview (6 Plates)</button>
+                <button class="mini-btn" id="btn-prev-fig" title="Previous Figure">◀</button>
+                <select id="select-figure" class="hud-select" title="Select Plate Figure (Figs. 1–6)"></select>
+                <button class="mini-btn" id="btn-next-fig" title="Next Figure">▶</button>
+                <div class="seg-mini hidden" id="variant-ab-group" title="Compare variant (a) vs. (b)">
+                  <button class="mini-btn" data-ab="a" id="btn-var-a">a · Variant A</button>
+                  <button class="mini-btn active" data-ab="b" id="btn-var-b">b · Variant B</button>
+                </div>
+              </div>
+
+              <!-- Lab Status Badges -->
+              <div id="lab-status-bar" class="hud-bar hidden">
+                <span class="status-pill ok" id="badge-mode">WANKEL 1:3</span>
+                <span class="status-pill" id="badge-angle">θ = 0.0°</span>
+                <span class="status-pill" id="badge-ratio">Ratio 1 : 3</span>
+              </div>
+
+              <!-- Top-Right Plate Render Controls -->
+              <div class="hud-bar hud-controls-right">
+                <select id="select-display-mode" class="hud-select" title="3D Display Layering">
+                  <option value="solid3d" id="opt-solid">3D Book Plate</option>
+                  <option value="exploded" id="opt-exploded">Exploded Tiers</option>
+                  <option value="plate2d" id="opt-plate2d">Flat Plate Top</option>
+                  <option value="wireframe" id="opt-wire">Ink Wireframe</option>
+                </select>
+                <button id="btn-toggle-callouts" class="mini-toggle active" title="Show/hide 3D call-outs">Call-Outs</button>
+                <button id="btn-toggle-labels" class="mini-toggle active" title="Show/hide dimension badges">Dimensions</button>
+                <button id="btn-toggle-pitch" class="mini-toggle active" title="Show/hide pitch circle rings">Pitch Rings</button>
+                <button id="btn-reset-cam" class="mini-toggle" title="Reset 3D camera">Reset Cam</button>
+              </div>
+            </div>
+
+            <!-- Bottom-Left Camera Presets -->
+            <div class="hud-bar hud-bottom-left" id="cam-presets-bar">
+              <button class="cam-chip" data-cam="perspective" id="cam-persp">3D Perspective</button>
+              <button class="cam-chip" data-cam="top" id="cam-top">Top Plan Plate</button>
+              <button class="cam-chip" data-cam="front" id="cam-front">Front Edge</button>
+              <button class="cam-chip" data-cam="side" id="cam-side">Oblique Bench</button>
+            </div>
+
+            <!-- Bottom-Right Authentic 1967 Symbol Key -->
+            <div class="plate-legend-card" aria-label="1967 Plate Legend">
+              <span><strong>○</strong> <span id="leg-fixed">Fixed Ring R</span></span>
+              <span class="slate"><strong>●</strong> <span id="leg-moving">Rotor / Disc</span></span>
+              <span class="vermilion"><strong>—</strong> <span id="leg-trace">Locus Trace</span></span>
+              <span class="amber"><strong>◆</strong> <span id="leg-pin">Seal / Pin</span></span>
+            </div>
+
+            <!-- Guided Tour Floating Card (Atlas Mode) -->
+            <div id="tour-card" class="tour-card hidden">
+              <div class="tour-header">
+                <span class="tour-badge" id="tour-badge">Stop 1 of 6</span>
+                <div class="tour-dots" id="tour-dots"></div>
+                <button id="btn-tour-close" class="icon-close" title="Exit guided tour">✕</button>
+              </div>
+              <h3 id="tour-title">Tour Title</h3>
+              <p id="tour-summary"></p>
+              <div class="tour-takeaway" id="tour-takeaway"></div>
+              <div class="tour-actions">
+                <button id="btn-tour-prev" class="tour-nav-btn">← Prev</button>
+                <button id="btn-tour-auto" class="tour-nav-btn secondary">▶ Auto</button>
+                <button id="btn-tour-next" class="tour-nav-btn primary">Next →</button>
+              </div>
+            </div>
           </div>
 
-          <!-- Animation Controls -->
-          <div class="control-box">
-            <div class="play-row">
-              <button id="btn-play-pause" class="btn btn-primary">⏸ Pause</button>
+          <!-- Synchronized 2D Pan/Zoom Drafting Sketch & Velocity Plot Strip (Lab Mode) -->
+          <div id="flow2d-strip" class="hidden">
+            <div class="canvas-card">
+              <canvas id="canvas-slice"></canvas>
             </div>
-            
-            <div class="slider-group">
-              <div class="slider-header">
-                <span>Speed:</span>
-                <span id="speed-val">1.0x</span>
+            <div class="canvas-card">
+              <canvas id="canvas-plots"></canvas>
+            </div>
+          </div>
+        </section>
+
+        <!-- Right Sidebar -->
+        <aside id="right-sidebar">
+          <!-- Atlas Inspector Panel -->
+          <div id="atlas-panel" class="sidebar-pane">
+            <div class="panel-header">
+              <div>
+                <span class="kicker" id="atlas-code">PLATES I–VI · 3D GALLERY</span>
+                <h2 id="atlas-title">Evolution of Cycloidal Kinematics</h2>
               </div>
-              <input type="range" id="speed-slider" min="0.1" max="3.0" step="0.1" value="1.0">
+              <span class="regime-tag" id="atlas-cat-tag">Figs. 1 – 6</span>
+            </div>
+
+            <p class="panel-desc" id="atlas-summary"></p>
+
+            <div class="book-quote" id="atlas-quote"></div>
+
+            <div class="section-label" id="atlas-list-heading">All 6 Kinematics Plates (Click to Inspect)</div>
+            <div id="callout-detail-list" class="callout-list"></div>
+
+            <div class="section-label" id="atlas-snapshot-heading">Computed Mechanism Parameters</div>
+            <div id="atlas-metrics" class="mini-kpi-grid"></div>
+
+            <div class="panel-cta-row">
+              <button id="btn-open-in-lab" class="cta-btn">Open Interactive Kinematics Lab →</button>
             </div>
           </div>
 
-          <!-- Dynamic Parameters for Trochoid mode -->
-          <div id="params-trochoid" class="control-box mode-params hidden">
-            <label class="box-label">Parametric Geometry</label>
-            
-            <div class="slider-group">
-              <div class="slider-header">
-                <span>Fixed Pitch Circle R:</span>
-                <span id="val-R">120</span>
+          <!-- Interactive Kinematics Lab Panel -->
+          <div id="lab-panel" class="sidebar-pane hidden">
+            <div class="panel-header compact">
+              <div>
+                <span class="kicker" id="ui-lab-kicker">INTERACTIVE MECHANISM &amp; CAD STUDIO</span>
+                <h2 id="ui-lab-title">Interactive Kinematics Lab</h2>
               </div>
-              <input type="range" id="slider-R" min="40" max="240" step="5" value="120">
+              <div class="header-actions-compact">
+                <button id="btn-play-pause" class="mini-btn accent-btn">⏸ Pause</button>
+                <button id="btn-reset" class="mini-btn" title="Reset angle θ and trail">↺ Reset θ</button>
+                <button id="btn-recenter" class="mini-btn" title="Recenter 2D sketch">⌖ Recenter 2D</button>
+              </div>
             </div>
 
-            <div class="slider-group">
-              <div class="slider-header">
-                <span>Rolling Circle r:</span>
-                <span id="val-r">40</span>
-              </div>
-              <input type="range" id="slider-r" min="10" max="120" step="2" value="40">
+            <!-- Presets -->
+            <div class="preset-strip" id="lab-presets"></div>
+
+            <!-- Live KPIs -->
+            <div class="kpi-grid" id="lab-kpis"></div>
+
+            <!-- Preset & Mode Dropdown -->
+            <div class="control-group">
+              <div class="group-title" id="ui-grp-pres">Mechanism / Kinematics Mode</div>
+              <select id="preset-select" class="sidebar-select">
+                <optgroup label="Industrial &amp; Mechatronics">
+                  <option value="wankel" selected>Wankel Rotary Engine (Trochoid Housing &amp; Rotor)</option>
+                  <option value="cycloid_10">Robotics Cycloid Drive (10:1 Reduction)</option>
+                  <option value="cycloid_15">Robotics Cycloid Drive (15:1 Reduction)</option>
+                </optgroup>
+                <optgroup label="Classical Roulette Curves">
+                  <option value="cardioid">Cardioid (Heart Curve, 1:1 Epicycloid)</option>
+                  <option value="nephroid">Nephroid (Kidney Curve, 2:1 Epicycloid)</option>
+                  <option value="astroid">Astroid (Star Curve, 4:1 Hypocycloid)</option>
+                  <option value="deltoid">Deltoid (Tricuspoid, 3:1 Hypocycloid)</option>
+                  <option value="spirograph_art">Spirograph Art Curve</option>
+                </optgroup>
+              </select>
             </div>
 
-            <div class="slider-group">
-              <div class="slider-header">
-                <span>Tracing Offset d:</span>
-                <span id="val-d">50</span>
+            <!-- Motion & Drafting Style -->
+            <div class="control-group">
+              <div class="group-title" id="ui-grp-motion">Motion &amp; Drafting Style</div>
+              <div class="slider-row">
+                <div class="slider-label-row">
+                  <span class="slider-label" id="ui-lbl-speed">Angular Speed</span>
+                  <span class="slider-val" id="speed-val">0.8x</span>
+                </div>
+                <input type="range" id="speed-slider" min="0.1" max="3.0" step="0.1" value="0.8">
               </div>
-              <input type="range" id="slider-d" min="5" max="150" step="2" value="50">
+              <div class="input-row">
+                <label class="slider-label" for="style-select" id="ui-lbl-style">2D Drafting Finish</label>
+                <select id="style-select" class="sidebar-select">
+                  <option value="paper" selected>1967 Book Plate (Ink &amp; Vermilion)</option>
+                  <option value="blueprint">Prussian Blueprint CAD</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Parametric Geometry Sliders (Dynamic per mode) -->
+            <div class="control-group">
+              <div class="group-title" id="ui-grp-params">Parametric Geometry</div>
+
+              <!-- Trochoid Params -->
+              <div id="params-trochoid" class="mode-params hidden">
+                <div class="input-row">
+                  <label class="slider-label" for="curve-type-select" id="ui-lbl-curvetype">Rolling Placement</label>
+                  <select id="curve-type-select" class="sidebar-select">
+                    <option value="hypo">Hypotrochoid (Inside R)</option>
+                    <option value="epi">Epitrochoid (Outside R)</option>
+                  </select>
+                </div>
+                <div class="slider-row">
+                  <div class="slider-label-row">
+                    <span class="slider-label" id="ui-lbl-R">Fixed Pitch Circle R</span>
+                    <span class="slider-val" id="val-R">120</span>
+                  </div>
+                  <input type="range" id="slider-R" min="40" max="240" step="5" value="120">
+                </div>
+                <div class="slider-row">
+                  <div class="slider-label-row">
+                    <span class="slider-label" id="ui-lbl-r">Rolling Circle r</span>
+                    <span class="slider-val" id="val-r">40</span>
+                  </div>
+                  <input type="range" id="slider-r" min="10" max="120" step="2" value="40">
+                </div>
+                <div class="slider-row">
+                  <div class="slider-label-row">
+                    <span class="slider-label" id="ui-lbl-d">Tracing Arm Offset d</span>
+                    <span class="slider-val" id="val-d">50</span>
+                  </div>
+                  <input type="range" id="slider-d" min="5" max="150" step="2" value="50">
+                </div>
+              </div>
+
+              <!-- Wankel Params -->
+              <div id="params-wankel" class="mode-params">
+                <div class="slider-row">
+                  <div class="slider-label-row">
+                    <span class="slider-label" id="ui-lbl-wR">Generating Radius R</span>
+                    <span class="slider-val" id="val-wR">140</span>
+                  </div>
+                  <input type="range" id="slider-wR" min="90" max="190" step="5" value="140">
+                </div>
+                <div class="slider-row">
+                  <div class="slider-label-row">
+                    <span class="slider-label" id="ui-lbl-we">Eccentricity e</span>
+                    <span class="slider-val" id="val-we">20</span>
+                  </div>
+                  <input type="range" id="slider-we" min="10" max="32" step="1" value="20">
+                </div>
+                <div class="slider-row">
+                  <div class="slider-label-row">
+                    <span class="slider-label" id="ui-lbl-wa">Seal Clearance Offset a</span>
+                    <span class="slider-val" id="val-wa">6</span>
+                  </div>
+                  <input type="range" id="slider-wa" min="0" max="16" step="1" value="6">
+                </div>
+              </div>
+
+              <!-- Cycloid Drive Params -->
+              <div id="params-cycloid_drive" class="mode-params hidden">
+                <div class="slider-row">
+                  <div class="slider-label-row">
+                    <span class="slider-label" id="ui-lbl-cN">Disc Lobes N (Pins N+1)</span>
+                    <span class="slider-val" id="val-cN">10</span>
+                  </div>
+                  <input type="range" id="slider-cN" min="6" max="20" step="1" value="10">
+                </div>
+                <div class="slider-row">
+                  <div class="slider-label-row">
+                    <span class="slider-label" id="ui-lbl-cR">Pin Circle Radius Rp</span>
+                    <span class="slider-val" id="val-cR">150</span>
+                  </div>
+                  <input type="range" id="slider-cR" min="100" max="200" step="5" value="150">
+                </div>
+                <div class="slider-row">
+                  <div class="slider-label-row">
+                    <span class="slider-label" id="ui-lbl-crp">Roller Pin Radius rp</span>
+                    <span class="slider-val" id="val-crp">10</span>
+                  </div>
+                  <input type="range" id="slider-crp" min="5" max="16" step="0.5" value="10">
+                </div>
+                <div class="slider-row">
+                  <div class="slider-label-row">
+                    <span class="slider-label" id="ui-lbl-ce">Eccentricity e</span>
+                    <span class="slider-val" id="val-ce">6.0</span>
+                  </div>
+                  <input type="range" id="slider-ce" min="3" max="10" step="0.5" value="6">
+                </div>
+              </div>
+            </div>
+
+            <!-- Live Equation & CAD DXF/SVG Export -->
+            <div class="control-group">
+              <div class="group-title" id="ui-grp-formula">Analytical Locus &amp; CAD Export</div>
+              <div id="telemetry-formula" class="formula-katex-box"></div>
+              <div class="export-btns">
+                <button id="btn-export-dxf" class="cad-btn primary">
+                  <span>⬇</span> <span id="ui-btn-dxf">DXF Export (CAD)</span>
+                </button>
+                <button id="btn-export-svg" class="cad-btn">
+                  <span>⬇</span> <span id="ui-btn-svg">SVG Vector</span>
+                </button>
+              </div>
             </div>
           </div>
-
-          <!-- CAD Export Section -->
-          <div class="control-box export-box">
-            <label class="box-label">CAD & Vector Export</label>
-            <p class="export-desc">Export the computed curve directly as a CAD sketch for Autodesk Inventor, SolidWorks, or laser cutting:</p>
-            
-            <div class="export-buttons">
-              <button id="btn-export-dxf" class="btn btn-cad">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
-                <span>DXF Export (CAD)</span>
-              </button>
-              <button id="btn-export-svg" class="btn btn-secondary">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
-                <span>SVG Vector</span>
-              </button>
-            </div>
-          </div>
-
-        </div>
+        </aside>
       </div>
 
-      <!-- Scientific & Engineering Foundations -->
-      <section class="info-section">
-        <h2 class="info-title">Mechanical Engineering & Kinematic Foundations</h2>
-
-        <div class="info-grid">
-          <div class="info-card">
-            <div class="info-icon">🏎️</div>
-            <h3>Wankel Rotary Engine Kinematics</h3>
-            <p>
-              The housing wall of a Wankel rotary engine is a <strong>two-lobed epitrochoid</strong>. 
-              The triangular rotor orbits on an eccentric shaft with eccentricity $e$ and rotates via an internal 
-              ring gear at exactly <strong>1/3 the speed</strong> of the eccentric shaft. 
-              As a result, all three apex seals maintain continuous tangential contact with the trochoid wall at every shaft angle.
-            </p>
+      <!-- Concepts & Book Notes View -->
+      <section id="concepts-view" class="editorial-view hidden">
+        <div class="editorial-container">
+          <div class="editorial-intro">
+            <span class="kicker" id="ui-concepts-kicker"></span>
+            <h2 id="ui-concepts-title"></h2>
+            <p id="ui-concepts-intro"></p>
           </div>
-
-          <div class="info-card">
-            <div class="info-icon">🦾</div>
-            <h3>Cycloidal Speed Reducers (Robotics)</h3>
-            <p>
-              Modern industrial robots (e.g., from KUKA or Fanuc) rely on <strong>cycloidal speed reducers (Cyclo Drives)</strong>. 
-              A cycloidal disc with $N$ lobes rolls inside a stationary ring of $N+1$ roller pins. 
-              The advantage: <strong>extremely high reduction ratios</strong> ($i = 10:1$ to $100:1$ in a single stage) 
-              with <strong>zero backlash</strong> and high shock-load capacity.
-            </p>
-          </div>
-        </div>
-
-        <!-- Comparison Table -->
-        <div class="comparison-card">
-          <h3>Direct Comparison: Walter Fendt (2024) vs. Modernized Laboratory (2026)</h3>
-          <div class="table-wrapper">
-            <table>
-              <thead>
-                <tr>
-                  <th>Feature</th>
-                  <th>Walter Fendt Original (<code>epihypotrochoids.js</code>)</th>
-                  <th>Modernized Laboratory (2026)</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td><strong>Mechanical Drive Modes</strong></td>
-                  <td>Abstract rolling-circle curves only</td>
-                  <td><strong>Wankel Rotary Engine Simulation</strong>, <strong>Robotics Cycloid Drive</strong>, Spirograph & Classical</td>
-                </tr>
-                <tr>
-                  <td><strong>CAD Connectivity</strong></td>
-                  <td>None</td>
-                  <td><strong>Native DXF & SVG Export</strong> for Autodesk Inventor, SolidWorks & CNC milling</td>
-                </tr>
-                <tr>
-                  <td><strong>Interaction & Navigation</strong></td>
-                  <td>Static 2D viewport</td>
-                  <td>Smooth <strong>Pan & Zoom</strong>, interactive presets & dynamic sliders</td>
-                </tr>
-                <tr>
-                  <td><strong>Design & Aesthetics</strong></td>
-                  <td>Yellow background with flat primary colors</td>
-                  <td>Slate Dark Theme, Technical Blueprint Mode & High-DPI Retina Rendering</td>
-                </tr>
-                <tr>
-                  <td><strong>Acoustics & Feedback</strong></td>
-                  <td>Silent</td>
-                  <td>Procedural Web Audio (gear-tooth clicks & Wankel shaft hum)</td>
-                </tr>
-              </tbody>
-            </table>
+          <div class="concepts-split">
+            <div class="concepts-col">
+              <h3 id="ui-laws-heading"></h3>
+              <div id="concepts-grid" class="concepts-grid"></div>
+            </div>
+            <div class="book-col">
+              <div class="book-page-card">
+                <div class="book-page-head">
+                  <span id="ui-book-head-l"></span>
+                  <span id="ui-book-head-r"></span>
+                </div>
+                <h3 id="ui-book-title"></h3>
+                <p class="book-page-note" id="ui-book-note"></p>
+                <div id="book-paragraphs"></div>
+                <div class="book-page-foot">LA HIRE · BRAREN · WANKEL · WALTER FENDT (1997–2024)</div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-    </div>
-  </main>
+      <!-- Further Reading View -->
+      <section id="reading-view" class="editorial-view hidden">
+        <div class="editorial-container">
+          <div class="editorial-intro">
+            <span class="kicker" id="ui-reading-kicker"></span>
+            <h2 id="ui-reading-title"></h2>
+            <p id="ui-reading-intro"></p>
+          </div>
+          <div class="reading-cols">
+            <div>
+              <h3 id="ui-read-col1"></h3>
+              <div id="reading-book-list" class="reading-list"></div>
+            </div>
+            <div>
+              <h3 id="ui-read-col2"></h3>
+              <div id="reading-external-list" class="reading-list"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
 
-  <footer class="app-footer">
-    <div class="container footer-content">
-      <p>
-        Developed by <strong>Walter (@xallace)</strong> as part of the Computational Systems & Kinematics Portfolio.  
-        Pedagogical tribute to senior educator <strong>Walter Fendt</strong> (1997–2024).
-      </p>
-      <div class="footer-links">
-        <a href="https://github.com/xallace" target="_blank" rel="noopener noreferrer">GitHub (@xallace)</a>
-        <span>·</span>
-        <a href="https://xallace.github.io/" target="_blank" rel="noopener noreferrer">Portfolio Hub</a>
-      </div>
-    </div>
-  </footer>
-
+  <!-- Local Offline Libraries + Modular App -->
+  <script src="vendor/three/three.min.js"></script>
+  <script src="vendor/three/OrbitControls.js"></script>
+  <script src="vendor/katex/katex.min.js"></script>
   <script src="math-engine.js"></script>
   <script src="audio.js"></script>
+  <script src="data.js"></script>
+  <script src="scene3d.js"></script>
+  <script src="cycloid2d.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
