@@ -9,16 +9,17 @@
   const THREE = global.THREE;
   const M = global.CycloidMath;
 
-  const INK_DARK = 0x181715;
-  const INK_CHARCOAL = 0x2b2823;
-  const PAPER_BG = 0xefe6d3;
-  const PAPER_CARD = 0xf6efe0;
-  const PAPER_PLATE = 0xfaf5e8;
-  const PAPER_ALT = 0xe2d7c1;
-  const VERMILION = 0xd94426;
-  const AMBER_WARM = 0xb45309;
-  const OK_GREEN = 0x047857;
-  const SLATE_INK = 0x355c7d;
+  const INK_DARK = 0xe9edf5;
+  const INK_CHARCOAL = 0xd2d8e2;
+  const PAPER_BG = 0x101620;
+  const PAPER_CARD = 0x1b2333;
+  const PAPER_PLATE = 0x0a101a;
+  const PAPER_ALT = 0x141a26;
+const TABLE_TOP = 0x121822;
+  const VERMILION = 0xff7d61;
+  const AMBER_WARM = 0xed864b;
+  const OK_GREEN = 0x58b691;
+  const SLATE_INK = 0x7aa3c8;
 
   const PLATE_W = 4.40;
   const PLATE_D = 2.86;
@@ -76,7 +77,7 @@
 
   const SPRITE_TEX_CACHE = new Map();
 
-  function makeTextSprite(text, fg = '#181715', bg = 'rgba(250, 245, 232, 0.94)', border = '#181715', wScale = 0.54, hScale = 0.16) {
+  function makeTextSprite(text, fg = '#e9edf5', bg = 'rgba(10, 16, 26, 0.94)', border = '#e9edf5', wScale = 0.54, hScale = 0.16) {
     if (typeof document === 'undefined') return null;
     const key = `cyc|${text}|${fg}|${bg}|${border}`;
     let tex = SPRITE_TEX_CACHE.get(key);
@@ -113,7 +114,7 @@
       ctx.textBaseline = 'middle';
       ctx.fillText(text, 256, 39, 488);
       tex = new THREE.CanvasTexture(canvas);
-      if (THREE.sRGBEncoding) tex.encoding = THREE.sRGBEncoding;
+      // dark theme: colours are output as authored (no sRGB re-encoding)
       tex.userData = { cached: true };
       SPRITE_TEX_CACHE.set(key, tex);
     }
@@ -530,7 +531,7 @@
         const info = M.getHarmonicInfo(cfg.R, cfg.r);
         badgeText = `${cfg.curveType === 'hypo' ? 'HYPO' : 'EPI'} R=${cfg.R} r=${cfg.r} d=${cfg.d} (${info.cusps}:${info.turns})`;
       }
-      const lbl = makeTextSprite(badgeText, '#181715', 'rgba(250, 245, 232, 0.95)', '#181715', 2.40, 0.24);
+      const lbl = makeTextSprite(badgeText, '#e9edf5', 'rgba(10, 16, 26, 0.95)', '#e9edf5', 2.40, 0.24);
       if (lbl) {
         lbl.position.set(0, baseY + 0.25, -1.26);
         root.add(lbl);
@@ -640,7 +641,7 @@
       this.renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: 'high-performance' });
       this.renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
       this.renderer.setSize(w, h);
-      if (THREE.sRGBEncoding) this.renderer.outputEncoding = THREE.sRGBEncoding;
+      // dark theme: no sRGB output encoding, material hex values render as authored
       container.appendChild(this.renderer.domElement);
 
       this.controls = new THREE.OrbitControls(this.camera, this.renderer.domElement);
@@ -650,11 +651,11 @@
       this.controls.maxDistance = 18;
       this.controls.maxPolarAngle = Math.PI * 0.48;
 
-      this.scene.add(new THREE.AmbientLight(0xfffaf0, 0.88));
-      const keyLight = new THREE.DirectionalLight(0xfff6e5, 0.58);
+      this.scene.add(new THREE.AmbientLight(0xfffaf0, 0.62));
+      const keyLight = new THREE.DirectionalLight(0xfff6e5, 0.42);
       keyLight.position.set(3, 7, 5);
       this.scene.add(keyLight);
-      const fillLight = new THREE.DirectionalLight(0xf6efe0, 0.28);
+      const fillLight = new THREE.DirectionalLight(0xf6efe0, 0.2);
       fillLight.position.set(-4, 4, -3);
       this.scene.add(fillLight);
 
@@ -731,7 +732,7 @@
 
       const floor = new THREE.Mesh(
         new THREE.BoxGeometry(10.8, 0.06, 5.2),
-        new THREE.MeshStandardMaterial({ color: PAPER_ALT, roughness: 0.95 })
+        new THREE.MeshStandardMaterial({ color: TABLE_TOP, roughness: 0.95 })
       );
       floor.position.set(0, PLATE_TOP_Y - 0.14, 0);
       addInkEdges(floor, 20, INK_DARK, 0.35);

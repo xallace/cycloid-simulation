@@ -9,17 +9,17 @@
 
   const STYLES = {
     paper: {
-      bg: '#faf5e8',
-      headerBg: '#f1e7d3',
-      grid: 'rgba(24, 23, 21, 0.08)',
-      axis: 'rgba(53, 92, 125, 0.40)',
-      ink: '#181715',
-      muted: '#575045',
-      primary: '#d94426',
-      secondary: '#355c7d',
-      fill: 'rgba(53, 92, 125, 0.14)',
-      accent: '#b45309',
-      good: '#047857',
+      bg: '#0a101a',
+      headerBg: '#101520',
+      grid: 'rgba(233, 237, 245, 0.08)',
+      axis: 'rgba(122, 163, 200, 0.40)',
+      ink: '#e9edf5',
+      muted: '#9ca7ba',
+      primary: '#ff7d61',
+      secondary: '#7aa3c8',
+      fill: 'rgba(122, 163, 200, 0.14)',
+      accent: '#ed864b',
+      good: '#58b691',
     },
     blueprint: {
       bg: '#0c2340',

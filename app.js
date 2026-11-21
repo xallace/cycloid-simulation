@@ -311,14 +311,14 @@
     const fig = D.FIGURES[activeId];
     fig.callouts.forEach((c, idx) => {
       const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-      line.setAttribute('stroke', '#d94426');
+      line.setAttribute('stroke', '#ff7d61');
       line.setAttribute('stroke-width', '1.4');
       line.setAttribute('stroke-dasharray', '3 2');
       svg.appendChild(line);
 
       const dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
       dot.setAttribute('r', '3.5');
-      dot.setAttribute('fill', '#d94426');
+      dot.setAttribute('fill', '#ff7d61');
       svg.appendChild(dot);
 
       const btn = document.createElement('button');
