@@ -876,7 +876,7 @@
       grpMotion: 'Motion & Drafting Style',
       lblSpeed: 'Angular Speed',
       lblStyle: '2D Drafting Finish',
-      stylePaper: '1967 Book Plate (Ink & Vermilion)',
+      stylePaper: 'Ink & Vermilion',
       styleBlueprint: 'Prussian Blueprint CAD',
       grpParams: 'Parametric Geometry',
       lblR: 'Fixed Pitch Circle R',
