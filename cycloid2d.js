@@ -69,7 +69,7 @@
     ctx.stroke();
 
     ctx.fillStyle = pal.ink;
-    ctx.font = 'bold 10px "JetBrains Mono", Consolas, monospace';
+    ctx.font = 'bold 10px "Iosevka Charon Mono", Consolas, monospace';
     ctx.textAlign = 'left';
     const modeLabel = simState.mode === 'wankel'
       ? (isDe ? 'WANKEL 1:3 SCHNITT' : 'WANKEL 1:3 CUTAWAY')
@@ -368,7 +368,7 @@
     }
 
     ctx.fillStyle = pal.ink;
-    ctx.font = 'bold 10px "JetBrains Mono", Consolas, monospace';
+    ctx.font = 'bold 10px "Iosevka Charon Mono", Consolas, monospace';
     ctx.textAlign = 'left';
     ctx.fillText(title, 10, 15);
 
@@ -387,7 +387,7 @@
 
     // Labels
     ctx.fillStyle = pal.muted;
-    ctx.font = '9px "JetBrains Mono", Consolas, monospace';
+    ctx.font = '9px "Iosevka Charon Mono", Consolas, monospace';
     ctx.textAlign = 'right';
     ctx.fillText(maxY.toFixed(0), plotLeft - 5, plotTop + 8);
     ctx.fillText('0', plotLeft - 5, plotBottom);
